@@ -1,5 +1,6 @@
 import React from 'react';
-import './index.css'
+import './index.css';
+import logo from '../src/images/header__logo.svg'
 
 function App() {
   return (
@@ -8,7 +9,7 @@ function App() {
         <img
           className="header__logo"
           alt="лого"
-          src="<%=require('./images/header__logo.svg')%>"
+          src={logo}
         />
       </header>
 
