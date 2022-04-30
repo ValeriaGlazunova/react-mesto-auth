@@ -1,53 +1,16 @@
 import React from 'react';
-import './index.css';
-import logo from '../src/images/header__logo.svg'
+import '../index.css';
+import Header from './Header';
+import Main from './Main';
+import Footer from './Footer';
 
 function App() {
   return (
     <div className="page">
-      <header className="header">
-        <img
-          className="header__logo"
-          alt="лого"
-          src={logo}
-        />
-      </header>
-
-      <main className="content">
-        <section className="profile">
-          <div className="profile__account">
-            <div className="profile__avatar-container">
-            <img
-              className="profile__avatar"
-              alt="аватар"
-              src="<%=require('./images/profile__photo.jpg')%>"
-            />
-            <button type="button" class="profile__avatar-edit-btn"></button>
-          </div>
-            <div className="profile__info">
-              <div className="profile__name-box">
-                <h1 className="profile__name">Жак-Ив Кусто</h1>
-                <button
-                  aria-label="изменить профиль"
-                  className="profile__edit-button"
-                  type="button"
-                ></button>
-              </div>
-              <p className="profile__description">Исследователь океана</p>
-            </div>
-          </div>
-          <button
-            aria-label="добавить фото"
-            className="profile__add-button"
-            type="button"
-          ></button>
-        </section>
-        <section className="elements"></section>
-      </main>
-
-      <footer className="footer">
-        <p className="footer__copyright">&copy; 2022 Mesto Russia</p>
-      </footer>
+      <Header />
+      <Main />
+      <Footer />
+      
 
       <div className="popup popup_type_edit-profile">
         <div className="popup__container popup__container_type_edit-profile">
