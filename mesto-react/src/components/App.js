@@ -3,6 +3,8 @@ import '../index.css';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
+import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
 
 function App() {
   return (
@@ -10,21 +12,9 @@ function App() {
       <Header />
       <Main />
       <Footer />
-      
-
-      <div className="popup popup_type_edit-profile">
-        <div className="popup__container popup__container_type_edit-profile">
-          <button
-            className="popup__close-button popup__close-button_type_edit-profile"
-            type="button"
-          ></button>
-          <h3 className="popup__heading">Редактировать профиль</h3>
-          <form
-            className="popup__form popup__form_type_edit-profile"
-            name="profile-info"
-            noValidate
-          >
-            <div className="popup__input-container">
+      <PopupWithForm name='edit-profile' title='Редактировать профиль' button='Сохранить' children={
+        <>
+        <div className="popup__input-container">
               <input
                 name="name"
                 id="name-input"
@@ -56,24 +46,11 @@ function App() {
                 className="popup__input-error popup__input-error_visible"
               ></span>
             </div>
-            <button className="popup__save-button" type="submit">Сохранить</button>
-          </form>
-        </div>
-      </div>
-
-      <div className="popup popup_type_add-card">
-        <div className="popup__container popup__container_type_add-card">
-          <button
-            className="popup__close-button popup__close-button_type_add-card"
-            type="button"
-          ></button>
-          <h3 className="popup__heading">Новое место</h3>
-          <form
-            className="popup__form popup__form_type_add-card"
-            name="add-card"
-            noValidate
-          >
-            <div className="popup__input-container">
+        </>
+      } />
+      <PopupWithForm name='add-card' title='Новое место' button='Создать' children={
+        <>
+ <div className="popup__input-container">
               <input
                 name="card-name-input"
                 id="card-name-input"
@@ -103,29 +80,11 @@ function App() {
                 className="popup__input-error popup__input-error_visible"
               ></span>
             </div>
-            <button
-              className="popup__save-button popup__save-button_type_add-card"
-              type="submit"
-            >
-              Создать
-            </button>
-          </form>
-        </div>
-      </div>
-
-      <div className="popup popup_type_change-avatar">
-        <div className="popup__container">
-          <button
-            className="popup__close-button"
-            type="button"
-          ></button>
-          <h3 className="popup__heading">Обновить аватар</h3>
-          <form
-            className="popup__form popup__form_type_change-avatar"
-            name="change-avatar"
-            noValidate
-          >
-            <div className="popup__input-container">
+        </>
+      } />
+      <PopupWithForm name='change-avatar' title='Обновить аватар' button='Сохранить' children={
+        <>
+        <div className="popup__input-container">
               <input
                 name="avatar-url-input"
                 id="avatar-url-input"
@@ -139,49 +98,14 @@ function App() {
                 className="popup__input-error popup__input-error_visible"
               ></span>
             </div>
-            <button
-              className="popup__save-button popup__save-button_type_change-avatar"
-              type="submit"
-            >
-              Сохранить
-            </button>
-          </form>
-        </div>
-      </div>
-    
+        </>
+      }
+      />
+      <PopupWithForm name='confirm' title='Вы уверены?' button='Да'
+      />
+      <ImagePopup />
 
-    <div className="popup popup_type_img-open">
-      <div className="popup__box">
-        <button
-          className="popup__close-button popup__close-button_type_img-open"
-          type="button"
-        ></button>
-        <img className="popup__image" alt="картинка" src="#" />
-        <h3 className="popup__subtitle"></h3>
-      </div>
-    </div>
 
-    <div className="popup popup_type_confirm">
-      <div className="popup__container">
-        <button
-          className="popup__close-button"
-          type="button"
-        ></button>
-        <h3 className="popup__heading">Вы уверены?</h3>
-        <form
-          className="popup__form"
-          name="confirm"
-          noValidate
-        >
-          <button
-            className="popup__save-button"
-            type="submit"
-          >
-            Да
-          </button>
-        </form>
-      </div>
-    </div>
   </div>
   );
 }
