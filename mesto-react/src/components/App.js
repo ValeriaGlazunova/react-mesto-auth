@@ -22,7 +22,7 @@ function App() {
           <form
             className="popup__form popup__form_type_edit-profile"
             name="profile-info"
-            novalidate
+            noValidate
           >
             <div className="popup__input-container">
               <input
@@ -31,8 +31,8 @@ function App() {
                 className="popup__input popup__input_type_name"
                 type="text"
                 placeholder="Имя"
-                minlength="2"
-                maxlength="40"
+                minLength="2"
+                maxLength="40"
                 required
               />
               <span
@@ -47,8 +47,8 @@ function App() {
                 className="popup__input popup__input_type_description"
                 type="text"
                 placeholder="Деятельность"
-                minlength="2"
-                maxlength="200"
+                minLength="2"
+                maxLength="200"
                 required
               />
               <span
@@ -71,7 +71,7 @@ function App() {
           <form
             className="popup__form popup__form_type_add-card"
             name="add-card"
-            novalidate
+            noValidate
           >
             <div className="popup__input-container">
               <input
@@ -80,8 +80,8 @@ function App() {
                 className="popup__input popup__input_type_card-name"
                 type="text"
                 placeholder="Название"
-                minlength="2"
-                maxlength="30"
+                minLength="2"
+                maxLength="30"
                 required
               />
               <span
@@ -123,7 +123,7 @@ function App() {
           <form
             className="popup__form popup__form_type_change-avatar"
             name="change-avatar"
-            novalidate
+            noValidate
           >
             <div className="popup__input-container">
               <input
@@ -171,7 +171,7 @@ function App() {
         <form
           className="popup__form"
           name="confirm"
-          novalidate
+          noValidate
         >
           <button
             className="popup__save-button"

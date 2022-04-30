@@ -1,6 +1,19 @@
 import React from "react";
 
 function Main() {
+
+  const handleEditProfileClick = () => {
+    document.querySelector('.popup_type_edit-profile').classList.add('popup_opened');
+  }
+
+  const handleEditAvatarClick = () => {
+    document.querySelector('.popup_type_change-avatar').classList.add('popup_opened');
+  }
+
+  const handleAddPlaceClick = () => {
+    document.querySelector('.popup_type_add-card').classList.add('popup_opened');
+  }
+
   return (
     <main className="content">
       <section className="profile">
@@ -11,7 +24,7 @@ function Main() {
               alt="аватар"
               src="<%=require('./images/profile__photo.jpg')%>"
             />
-            <button type="button" class="profile__avatar-edit-btn"></button>
+            <button type="button" className="profile__avatar-edit-btn" onClick={handleEditAvatarClick}></button>
           </div>
           <div className="profile__info">
             <div className="profile__name-box">
@@ -20,6 +33,7 @@ function Main() {
                 aria-label="изменить профиль"
                 className="profile__edit-button"
                 type="button"
+                onClick={handleEditProfileClick}
               ></button>
             </div>
             <p className="profile__description">Исследователь океана</p>
@@ -29,6 +43,7 @@ function Main() {
           aria-label="добавить фото"
           className="profile__add-button"
           type="button"
+          onClick={handleAddPlaceClick}
         ></button>
       </section>
       <section className="elements"></section>
