@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../index.css';
 import Header from './Header';
 import Main from './Main';
@@ -7,12 +7,35 @@ import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 
 function App() {
+
+  let [isEditProfilePopupOpen,setIsEditProfilePopupOpen ] = useState(false);
+  let [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  let [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+
+  const handleEditProfileClick = () => {
+    setIsEditProfilePopupOpen(true);
+  }
+
+  const handleEditAvatarClick = () => {
+    setIsEditAvatarPopupOpen(true);
+  }
+
+  const handleAddPlaceClick = () => {
+    setIsAddPlacePopupOpen(true);
+  }
+
+  const closeAllPopups = () => {
+    setIsEditProfilePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+  }
+
   return (
     <div className="page">
       <Header />
-      <Main />
+      <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick}/>
       <Footer />
-      <PopupWithForm name='edit-profile' title='Редактировать профиль' button='Сохранить' children={
+      <PopupWithForm name='edit-profile' title='Редактировать профиль' button='Сохранить' onClose={closeAllPopups} isOpen={isEditProfilePopupOpen} children={
         <>
         <div className="popup__input-container">
               <input
@@ -48,7 +71,7 @@ function App() {
             </div>
         </>
       } />
-      <PopupWithForm name='add-card' title='Новое место' button='Создать' children={
+      <PopupWithForm name='add-card' title='Новое место' button='Создать' onClose={closeAllPopups} isOpen={isAddPlacePopupOpen} children={
         <>
  <div className="popup__input-container">
               <input
@@ -82,7 +105,7 @@ function App() {
             </div>
         </>
       } />
-      <PopupWithForm name='change-avatar' title='Обновить аватар' button='Сохранить' children={
+      <PopupWithForm name='change-avatar' title='Обновить аватар' button='Сохранить' onClose={closeAllPopups} isOpen={isEditAvatarPopupOpen} children={
         <>
         <div className="popup__input-container">
               <input
