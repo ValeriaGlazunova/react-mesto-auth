@@ -33,7 +33,7 @@ function App() {
   return (
     <div className="page">
       <Header />
-      <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick}/>
+      <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} />
       <Footer />
       <PopupWithForm name='edit-profile' title='Редактировать профиль' button='Сохранить' onClose={closeAllPopups} isOpen={isEditProfilePopupOpen} children={
         <>

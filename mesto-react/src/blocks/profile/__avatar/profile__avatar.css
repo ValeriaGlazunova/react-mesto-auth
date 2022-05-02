@@ -3,6 +3,9 @@
     height: 120px;
     border-radius: 50%;
     margin: 0 30px 51px 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 @media screen and (max-width: 900px) {
