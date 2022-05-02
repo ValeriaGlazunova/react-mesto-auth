@@ -51,7 +51,7 @@ function App() {
         button="Сохранить"
         onClose={closeAllPopups}
         isOpen={isEditProfilePopupOpen}
-        children={
+        >
           <>
             <div className="popup__input-container">
               <input
@@ -86,15 +86,15 @@ function App() {
               ></span>
             </div>
           </>
-        }
-      />
+        </PopupWithForm>
+        
       <PopupWithForm
         name="add-card"
         title="Новое место"
         button="Создать"
         onClose={closeAllPopups}
         isOpen={isAddPlacePopupOpen}
-        children={
+        >
           <>
             <div className="popup__input-container">
               <input
@@ -127,15 +127,16 @@ function App() {
               ></span>
             </div>
           </>
-        }
-      />
+          </PopupWithForm>
+
+        
       <PopupWithForm
         name="change-avatar"
         title="Обновить аватар"
         button="Сохранить"
         onClose={closeAllPopups}
         isOpen={isEditAvatarPopupOpen}
-        children={
+        >
           <>
             <div className="popup__input-container">
               <input
@@ -152,8 +153,8 @@ function App() {
               ></span>
             </div>
           </>
-        }
-      />
+          </PopupWithForm>
+      
       <PopupWithForm name="confirm" title="Вы уверены?" button="Да" />
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </div>

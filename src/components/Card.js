@@ -14,7 +14,7 @@ function Card({ link, name, likes, onCardClick }) {
       ></button>
       <img
         className="element__image"
-        alt="карточка"
+        alt={name}
         src={link}
         onClick={handleClick}
       />
