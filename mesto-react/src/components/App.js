@@ -1,49 +1,59 @@
-import React, { useState } from 'react';
-import '../index.css';
-import Header from './Header';
-import Main from './Main';
-import Footer from './Footer';
-import PopupWithForm from './PopupWithForm';
-import ImagePopup from './ImagePopup';
+import React, { useState } from "react";
+import "../index.css";
+import Header from "./Header";
+import Main from "./Main";
+import Footer from "./Footer";
+import PopupWithForm from "./PopupWithForm";
+import ImagePopup from "./ImagePopup";
 
 function App() {
-
-  let [isEditProfilePopupOpen,setIsEditProfilePopupOpen ] = useState(false);
+  let [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   let [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   let [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   let [selectedCard, setSelectedCard] = useState(null);
 
   const handleEditProfileClick = () => {
     setIsEditProfilePopupOpen(true);
-  }
+  };
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
-  }
+  };
 
   const handleAddPlaceClick = () => {
     setIsAddPlacePopupOpen(true);
-  }
+  };
 
   const handleCardClick = (card) => {
     setSelectedCard(card);
-  }
+  };
 
   const closeAllPopups = () => {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setSelectedCard(null);
-  }
+  };
 
   return (
     <div className="page">
       <Header />
-      <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} />
+      <Main
+        onEditProfile={handleEditProfileClick}
+        onAddPlace={handleAddPlaceClick}
+        onEditAvatar={handleEditAvatarClick}
+        onCardClick={handleCardClick}
+      />
       <Footer />
-      <PopupWithForm name='edit-profile' title='Редактировать профиль' button='Сохранить' onClose={closeAllPopups} isOpen={isEditProfilePopupOpen} children={
-        <>
-        <div className="popup__input-container">
+      <PopupWithForm
+        name="edit-profile"
+        title="Редактировать профиль"
+        button="Сохранить"
+        onClose={closeAllPopups}
+        isOpen={isEditProfilePopupOpen}
+        children={
+          <>
+            <div className="popup__input-container">
               <input
                 name="name"
                 id="name-input"
@@ -75,11 +85,18 @@ function App() {
                 className="popup__input-error popup__input-error_visible"
               ></span>
             </div>
-        </>
-      } />
-      <PopupWithForm name='add-card' title='Новое место' button='Создать' onClose={closeAllPopups} isOpen={isAddPlacePopupOpen} children={
-        <>
- <div className="popup__input-container">
+          </>
+        }
+      />
+      <PopupWithForm
+        name="add-card"
+        title="Новое место"
+        button="Создать"
+        onClose={closeAllPopups}
+        isOpen={isAddPlacePopupOpen}
+        children={
+          <>
+            <div className="popup__input-container">
               <input
                 name="card-name-input"
                 id="card-name-input"
@@ -109,11 +126,18 @@ function App() {
                 className="popup__input-error popup__input-error_visible"
               ></span>
             </div>
-        </>
-      } />
-      <PopupWithForm name='change-avatar' title='Обновить аватар' button='Сохранить' onClose={closeAllPopups} isOpen={isEditAvatarPopupOpen} children={
-        <>
-        <div className="popup__input-container">
+          </>
+        }
+      />
+      <PopupWithForm
+        name="change-avatar"
+        title="Обновить аватар"
+        button="Сохранить"
+        onClose={closeAllPopups}
+        isOpen={isEditAvatarPopupOpen}
+        children={
+          <>
+            <div className="popup__input-container">
               <input
                 name="avatar-url-input"
                 id="avatar-url-input"
@@ -127,15 +151,12 @@ function App() {
                 className="popup__input-error popup__input-error_visible"
               ></span>
             </div>
-        </>
-      }
+          </>
+        }
       />
-      <PopupWithForm name='confirm' title='Вы уверены?' button='Да'
-      />
+      <PopupWithForm name="confirm" title="Вы уверены?" button="Да" />
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-
-
-  </div>
+    </div>
   );
 }
 

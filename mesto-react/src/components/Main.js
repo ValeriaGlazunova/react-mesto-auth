@@ -1,40 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { api } from "../utils/Api";
-import Card from '../components/Card'
+import Card from "../components/Card";
 
-function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
-
+function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
   let [userName, setUserName] = useState();
   let [userDescription, setUserDescription] = useState();
   let [userAvatar, setUserAvatar] = useState();
   let [cards, setCards] = useState([]);
 
-useEffect(() => {
-  api.getProfile()
-  .then((res) => {
-    setUserName(res.name)
-    setUserAvatar(res.avatar)
-    setUserDescription(res.about)
-  })
-  .catch(err => {
-    console.log(err)
-  });
-}, [])
+  useEffect(() => {
+    api
+      .getProfile()
+      .then((res) => {
+        setUserName(res.name);
+        setUserAvatar(res.avatar);
+        setUserDescription(res.about);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
- useEffect(() => {
- 
-  api.getInitialCards()
-  .then(res => {
-    
-    setCards(res)
-  })
-  .catch(err => {
-    console.log(err)
-  });
-}, [])
+  useEffect(() => {
+    api
+      .getInitialCards()
+      .then((res) => {
+        setCards(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
-    
     <main className="content">
       <section className="profile">
         <div className="profile__account">
@@ -42,9 +40,14 @@ useEffect(() => {
             <div
               className="profile__avatar"
               alt="аватар"
-              style={{ backgroundImage: `url(${userAvatar})` }}></div>
-            
-            <button type="button" className="profile__avatar-edit-btn" onClick={onEditAvatar}></button>
+              style={{ backgroundImage: `url(${userAvatar})` }}
+            ></div>
+
+            <button
+              type="button"
+              className="profile__avatar-edit-btn"
+              onClick={onEditAvatar}
+            ></button>
           </div>
           <div className="profile__info">
             <div className="profile__name-box">
@@ -67,11 +70,11 @@ useEffect(() => {
         ></button>
       </section>
       <section className="elements">
-      { cards.map((res) => (<Card key={res._id} {...res} onCardClick={onCardClick} />))}
+        {cards.map((res) => (
+          <Card key={res._id} {...res} onCardClick={onCardClick} />
+        ))}
       </section>
     </main>
-  
-
   );
 }
 
