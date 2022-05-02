@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { api } from "../utils/Api";
+import Card from '../components/Card'
 
 function Main({onEditProfile, onAddPlace, onEditAvatar}) {
 
@@ -8,6 +9,7 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
   let [userAvatar, setUserAvatar] = useState();
   let [cards, setCards] = useState([]);
 
+useEffect(() => {
   api.getProfile()
   .then((res) => {
     setUserName(res.name)
@@ -17,15 +19,19 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
   .catch(err => {
     console.log(err)
   });
+}, [])
 
+ useEffect(() => {
+ 
   api.getInitialCards()
-  .then((res) => {
+  .then(res => {
+    
     setCards(res)
-    console.log(res, 'res')
   })
   .catch(err => {
     console.log(err)
   });
+}, [])
 
   return (
     
@@ -59,29 +65,9 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
           type="button"
           onClick={onAddPlace}
         ></button>
-      </section>s
+      </section>
       <section className="elements">
-      { cards.map((res) =>
-    <div className="element">
-    <button
-      className="element__trash-btn"
-      aria-label="удалить"
-      type="button"
-    ></button>
-    <img className="element__image" alt="карточка" key={res._id} src={res.link} />
-    <div className="element__description">
-      <h2 className="element__title" key={res._id}>{res.name}</h2>
-      <div className="element__like-box">
-      <button
-        aria-label="лайк"
-        className="element__like-btn"
-        type="button"
-      ></button>
-      <span className="element__like-nmb">{res.likes.length} </span>
-      </div>
-    </div>
-  </div>
-  )}
+      { cards.map((res) => (<Card key={res._id} {...res} />))}
       </section>
     </main>
   
