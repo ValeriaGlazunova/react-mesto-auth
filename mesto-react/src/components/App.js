@@ -11,6 +11,7 @@ function App() {
   let [isEditProfilePopupOpen,setIsEditProfilePopupOpen ] = useState(false);
   let [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   let [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  let [selectedCard, setSelectedCard] = useState(null);
 
   const handleEditProfileClick = () => {
     setIsEditProfilePopupOpen(true);
@@ -24,16 +25,21 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
+  const handleCardClick = (card) => {
+    setSelectedCard(card);
+  }
+
   const closeAllPopups = () => {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setSelectedCard(null);
   }
 
   return (
     <div className="page">
       <Header />
-      <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} />
+      <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} />
       <Footer />
       <PopupWithForm name='edit-profile' title='Редактировать профиль' button='Сохранить' onClose={closeAllPopups} isOpen={isEditProfilePopupOpen} children={
         <>
@@ -126,7 +132,7 @@ function App() {
       />
       <PopupWithForm name='confirm' title='Вы уверены?' button='Да'
       />
-      <ImagePopup />
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
 
   </div>

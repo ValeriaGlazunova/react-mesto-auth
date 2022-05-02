@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { api } from "../utils/Api";
 import Card from '../components/Card'
 
-function Main({onEditProfile, onAddPlace, onEditAvatar}) {
+function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
 
   let [userName, setUserName] = useState();
   let [userDescription, setUserDescription] = useState();
@@ -67,7 +67,7 @@ useEffect(() => {
         ></button>
       </section>
       <section className="elements">
-      { cards.map((res) => (<Card key={res._id} {...res} />))}
+      { cards.map((res) => (<Card key={res._id} {...res} onCardClick={onCardClick} />))}
       </section>
     </main>
   

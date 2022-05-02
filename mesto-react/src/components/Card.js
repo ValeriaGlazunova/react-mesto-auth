@@ -1,6 +1,11 @@
 import React from "react";
 
-function Card ({link, name, likes}) {
+function Card ({link, name, likes, onCardClick}) {
+ 
+    function handleClick() {
+        onCardClick({link, name})
+    }
+
     return(
     <div className="element">
     <button
@@ -8,7 +13,7 @@ function Card ({link, name, likes}) {
       aria-label="удалить"
       type="button"
     ></button>
-    <img className="element__image" alt="карточка" src={link} />
+    <img className="element__image" alt="карточка" src={link} onClick={handleClick} />
     <div className="element__description">
       <h2 className="element__title">{name}</h2>
       <div className="element__like-box">
