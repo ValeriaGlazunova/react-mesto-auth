@@ -4,6 +4,7 @@ import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
+import EditProfilePopup from "./EditProfilePopup";
 import ImagePopup from "./ImagePopup";
 import { api } from  "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
@@ -13,7 +14,10 @@ function App() {
   let [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   let [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   let [selectedCard, setSelectedCard] = useState(null);
-  let [currentUser, setCurrentUser] = useState({});
+  let [currentUser, setCurrentUser] = useState({
+    name: '',
+    about: ''
+  });
   let [cards, setCards] = useState([]);
 
   useEffect(() => {
@@ -80,6 +84,19 @@ function App() {
     });
   }
 
+  function handleUpdateUser(data) {
+    const { name, job } = data;
+    api.editProfile(name, job)
+    .then((res) => {
+      console.log(res, 'res')
+      setCurrentUser({name:res.name, about: res.about});
+      //closeAllPopups();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
     <div className="page">
@@ -94,48 +111,7 @@ function App() {
         cards = {cards}
       />
       <Footer />
-      <PopupWithForm
-        name="edit-profile"
-        title="Редактировать профиль"
-        button="Сохранить"
-        onClose={closeAllPopups}
-        isOpen={isEditProfilePopupOpen}
-        >
-          <>
-            <div className="popup__input-container">
-              <input
-                name="name"
-                id="name-input"
-                className="popup__input popup__input_type_name"
-                type="text"
-                placeholder="Имя"
-                minLength="2"
-                maxLength="40"
-                required
-              />
-              <span
-                id="name-input-error"
-                className="popup__input-error popup__input-error_visible"
-              ></span>
-            </div>
-            <div className="popup__input-container">
-              <input
-                name="job"
-                id="job-input"
-                className="popup__input popup__input_type_description"
-                type="text"
-                placeholder="Деятельность"
-                minLength="2"
-                maxLength="200"
-                required
-              />
-              <span
-                id="job-input-error"
-                className="popup__input-error popup__input-error_visible"
-              ></span>
-            </div>
-          </>
-        </PopupWithForm>
+      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}  />
         
       <PopupWithForm
         name="add-card"
