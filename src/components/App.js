@@ -50,12 +50,20 @@ function App() {
     setSelectedCard(card);
   };
 
+
   const closeAllPopups = () => {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setSelectedCard(null);
   };
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
+      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+  });
+  } 
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -66,6 +74,7 @@ function App() {
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
         onCardClick={handleCardClick}
+        onCardLike={handleCardLike}
         cards = {cards}
       />
       <Footer />

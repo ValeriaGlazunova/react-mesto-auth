@@ -3,7 +3,7 @@ import { api } from "../utils/Api";
 import Card from "../components/Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, cards }) {
+function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike, cards }) {
   const currentUser = useContext(CurrentUserContext);
 //  const [userName, setUserName] = useState('');
 //  const [userDescription, setUserDescription] = useState('');
@@ -30,8 +30,9 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, cards }) {
    //     console.log(err);
    //   });
  // }, []);
+ 
 
-  
+
 
   return (
     <main className="content">
@@ -72,7 +73,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, cards }) {
       </section>
       <section className="elements">
         {cards.map((card) => (
-          <Card key={card._id} card={card} onCardClick={onCardClick} />
+          <Card key={card._id} card={card} onCardClick={onCardClick} onCardLike={onCardLike} />
         ))}
       </section>
     </main>
