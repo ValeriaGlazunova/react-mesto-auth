@@ -66,22 +66,6 @@ class Api {
     }
   }
 
- // deleteLike(id) {
- //   return fetch(`${this._baseUrl}/cards/${id}/likes`, {
- //     method: "DELETE",
- //     headers: this._headers,
- //   })
- //     .then(this._checkResponse)
- // }
-
- // putLike(id) {
- //   return fetch(`${this._baseUrl}/cards/${id}/likes`, {
-  //    method: "PUT",
- //     headers: this._headers,
- //   })
- //     .then(this._checkResponse)
- // }
-
   changeAvatar(avatar) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",

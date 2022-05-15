@@ -60,10 +60,25 @@ function App() {
 
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
-    api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
+    api.changeLikeCardStatus(card._id, isLiked)
+    .then((newCard) => {
       setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+  })
+  .catch((err) => {
+    console.log(err);
   });
   } 
+
+  function handleCardDelete(card) {
+    api.deleteMyCard(card._id)
+    .then(() => {
+      const newCardList = cards.filter((item) => item._id !==card._id);
+      setCards(newCardList);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -75,6 +90,7 @@ function App() {
         onEditAvatar={handleEditAvatarClick}
         onCardClick={handleCardClick}
         onCardLike={handleCardLike}
+        onCardDelete={handleCardDelete}
         cards = {cards}
       />
       <Footer />

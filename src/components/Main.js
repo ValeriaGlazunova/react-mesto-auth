@@ -1,9 +1,8 @@
-import { useContext, useEffect, useState } from "react";
-import { api } from "../utils/Api";
+import { useContext } from "react";
 import Card from "../components/Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike, cards }) {
+function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike, onCardDelete, cards }) {
   const currentUser = useContext(CurrentUserContext);
 //  const [userName, setUserName] = useState('');
 //  const [userDescription, setUserDescription] = useState('');
@@ -73,7 +72,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike
       </section>
       <section className="elements">
         {cards.map((card) => (
-          <Card key={card._id} card={card} onCardClick={onCardClick} onCardLike={onCardLike} />
+          <Card key={card._id} card={card} onCardClick={onCardClick} onCardLike={onCardLike} onCardDelete={onCardDelete} />
         ))}
       </section>
     </main>
