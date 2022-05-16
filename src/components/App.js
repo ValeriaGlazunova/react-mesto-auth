@@ -5,6 +5,7 @@ import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 import ImagePopup from "./ImagePopup";
 import { api } from  "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
@@ -20,7 +21,6 @@ function App() {
   useEffect(() => {
     api.getProfile()
     .then((res) => {
-      console.log('res', res)
       setCurrentUser(res);
     })
     .catch((err) => {
@@ -93,6 +93,17 @@ function App() {
     });
   }
 
+  function handleUpdateAvatar(data) {
+    api.changeAvatar(data)
+    .then((newData) => {
+      setCurrentUser(newData);
+      closeAllPopups();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
     <div className="page">
@@ -108,7 +119,7 @@ function App() {
       />
       <Footer />
       <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}  />
-        
+      <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />  
       <PopupWithForm
         name="add-card"
         title="Новое место"
@@ -151,30 +162,7 @@ function App() {
           </PopupWithForm>
 
         
-      <PopupWithForm
-        name="change-avatar"
-        title="Обновить аватар"
-        button="Сохранить"
-        onClose={closeAllPopups}
-        isOpen={isEditAvatarPopupOpen}
-        >
-          <>
-            <div className="popup__input-container">
-              <input
-                name="avatar-url-input"
-                id="avatar-url-input"
-                className="popup__input popup__input_type_avatar-url"
-                type="url"
-                placeholder="Ссылка на картинку"
-                required
-              />
-              <span
-                id="avatar-url-input-error"
-                className="popup__input-error popup__input-error_visible"
-              ></span>
-            </div>
-          </>
-          </PopupWithForm>
+      
       
       <PopupWithForm name="confirm" title="Вы уверены?" button="Да" />
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
