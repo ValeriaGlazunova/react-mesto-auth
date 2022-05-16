@@ -6,6 +6,7 @@ import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
+import AddPlacePopup from "./AddPlacePopup";
 import ImagePopup from "./ImagePopup";
 import { api } from  "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
@@ -104,6 +105,17 @@ function App() {
     });
   }
 
+  function handleAddPlaceSubmit(data) {
+    api.postCard(data)
+    .then((newCard) => {
+    setCards([newCard, ...cards]);
+    closeAllPopups();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
     <div className="page">
@@ -120,50 +132,8 @@ function App() {
       <Footer />
       <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}  />
       <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />  
-      <PopupWithForm
-        name="add-card"
-        title="Новое место"
-        button="Создать"
-        onClose={closeAllPopups}
-        isOpen={isAddPlacePopupOpen}
-        >
-          <>
-            <div className="popup__input-container">
-              <input
-                name="card-name-input"
-                id="card-name-input"
-                className="popup__input popup__input_type_card-name"
-                type="text"
-                placeholder="Название"
-                minLength="2"
-                maxLength="30"
-                required
-              />
-              <span
-                id="card-name-input-error"
-                className="popup__input-error popup__input-error_visible"
-              ></span>
-            </div>
-            <div className="popup__input-container">
-              <input
-                name="card-url-input"
-                id="card-url-input"
-                className="popup__input popup__input_type_card-link"
-                type="url"
-                placeholder="Ссылка на картинку"
-                required
-              />
-              <span
-                id="card-url-input-error"
-                className="popup__input-error popup__input-error_visible"
-              ></span>
-            </div>
-          </>
-          </PopupWithForm>
+      <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
 
-        
-      
-      
       <PopupWithForm name="confirm" title="Вы уверены?" button="Да" />
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </div>
