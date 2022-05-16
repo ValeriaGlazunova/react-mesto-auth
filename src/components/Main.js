@@ -4,34 +4,6 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike, onCardDelete, cards }) {
   const currentUser = useContext(CurrentUserContext);
-//  const [userName, setUserName] = useState('');
-//  const [userDescription, setUserDescription] = useState('');
- // const [userAvatar, setUserAvatar] = useState('');
- // const [cards, setCards] = useState([]);
-
- // useEffect(() => {
-   // api
-   //   .getProfile()
-    //  .then((res) => {
-   //     setUserName(res.name);
-    //    setUserAvatar(res.avatar);
-    //    setUserDescription(res.about);
-    //  })
-    //  .catch((err) => {
-    //    console.log(err);
-    //  });
-  //    api
-   //   .getInitialCards()
-   //   .then((res) => {
-   //     setCards(res);
-   //   })
-   //   .catch((err) => {
-   //     console.log(err);
-   //   });
- // }, []);
- 
-
-
 
   return (
     <main className="content">

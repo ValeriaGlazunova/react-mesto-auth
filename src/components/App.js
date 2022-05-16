@@ -14,15 +14,13 @@ function App() {
   let [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   let [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   let [selectedCard, setSelectedCard] = useState(null);
-  let [currentUser, setCurrentUser] = useState({
-    name: '',
-    about: ''
-  });
+  let [currentUser, setCurrentUser] = useState({});
   let [cards, setCards] = useState([]);
 
   useEffect(() => {
     api.getProfile()
     .then((res) => {
+      console.log('res', res)
       setCurrentUser(res);
     })
     .catch((err) => {
@@ -35,7 +33,7 @@ function App() {
     .catch((err) => {
       console.log(err);
     });
-  });
+  }, []);
 
 
   const handleEditProfileClick = () => {
@@ -73,7 +71,7 @@ function App() {
   });
   } 
 
-  function handleCardDelete(card) {
+  const handleCardDelete = (card) => {
     api.deleteMyCard(card._id)
     .then(() => {
       const newCardList = cards.filter((item) => item._id !==card._id);
@@ -85,12 +83,10 @@ function App() {
   }
 
   function handleUpdateUser(data) {
-    const { name, job } = data;
-    api.editProfile(name, job)
-    .then((res) => {
-      console.log(res, 'res')
-      setCurrentUser({name:res.name, about: res.about});
-      //closeAllPopups();
+    api.editProfile(data)
+    .then((newData) => {
+      setCurrentUser(newData);
+      closeAllPopups();
     })
     .catch((err) => {
       console.log(err);

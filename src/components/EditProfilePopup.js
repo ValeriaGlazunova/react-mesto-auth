@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
@@ -7,6 +7,7 @@ export default function EditProfilePopup (props) {
     
     let [name, setName] = useState('');
     let [description, setDescription] = useState('');
+    
 
     function handleEditName(e) {
         setName(e.target.value);
@@ -16,22 +17,26 @@ export default function EditProfilePopup (props) {
         setDescription(e.target.value);
     }
 
-    const currentUser = createContext(CurrentUserContext);
-
+    const currentUser = useContext(CurrentUserContext);
 
     useEffect(() => {
-        setName(currentUser.name);
-        setDescription(currentUser.about);
-      }, [currentUser]);
+      setName(currentUser.name);
+      setDescription(currentUser.about);
+    }, [currentUser]);
 
-      function handleSubmit(e) {
-        e.preventDefault();
+    function handleSubmit(e) {
       
-        props.onUpdateUser({
-          name,
-          about: description,
-        });
-      } 
+      e.preventDefault();
+    
+      props.onUpdateUser({
+        name,
+        about: description,
+    });
+    }
+
+   
+
+       
 
     return (
 <PopupWithForm
@@ -52,7 +57,7 @@ export default function EditProfilePopup (props) {
                 placeholder="Имя"
                 minLength="2"
                 maxLength="40"
-                value={currentUser.name}
+                defaultValue={name}
                 onChange={handleEditName}
                 required
               />
@@ -70,7 +75,7 @@ export default function EditProfilePopup (props) {
                 placeholder="Деятельность"
                 minLength="2"
                 maxLength="200"
-                value={currentUser.description}
+                defaultValue={description}
                 onChange={handleEditJob}
                 required
               />

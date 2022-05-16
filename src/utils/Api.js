@@ -18,14 +18,14 @@ class Api {
       .then(this._checkResponse)
   }
 
-  editProfile(name, about) {
+  editProfile(data) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        name,
-        about,
-      }),
+        name: data.name,
+        about: data.about
+       }),
     })
       .then(this._checkResponse)
   }
