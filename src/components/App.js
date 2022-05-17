@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "../index.css";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -12,12 +11,12 @@ import { api } from "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function App() {
-  let [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
-  let [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
-  let [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-  let [selectedCard, setSelectedCard] = useState(null);
-  let [currentUser, setCurrentUser] = useState({});
-  let [cards, setCards] = useState([]);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [currentUser, setCurrentUser] = useState({});
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
     api

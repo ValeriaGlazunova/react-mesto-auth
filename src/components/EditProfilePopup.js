@@ -3,8 +3,8 @@ import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 export default function EditProfilePopup(props) {
-  let [name, setName] = useState("");
-  let [description, setDescription] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
 
   function handleEditName(e) {
     setName(e.target.value);
@@ -19,7 +19,7 @@ export default function EditProfilePopup(props) {
   useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  }, [currentUser]);
+  }, [currentUser, props.isOpen]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -39,7 +39,6 @@ export default function EditProfilePopup(props) {
       isOpen={props.isOpen}
       onSubmit={handleSubmit}
     >
-      <>
         <div className="popup__input-container">
           <input
             name="name"
@@ -49,7 +48,7 @@ export default function EditProfilePopup(props) {
             placeholder="Имя"
             minLength="2"
             maxLength="40"
-            defaultValue={name}
+            value={name || ''}
             onChange={handleEditName}
             required
           />
@@ -67,7 +66,7 @@ export default function EditProfilePopup(props) {
             placeholder="Деятельность"
             minLength="2"
             maxLength="200"
-            defaultValue={description}
+            value={description || ''}
             onChange={handleEditJob}
             required
           />
@@ -76,7 +75,6 @@ export default function EditProfilePopup(props) {
             className="popup__input-error popup__input-error_visible"
           ></span>
         </div>
-      </>
     </PopupWithForm>
   );
 }

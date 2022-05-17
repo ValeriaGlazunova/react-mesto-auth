@@ -2,8 +2,8 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm";
 
 export default function AddPlacePopup(props) {
-  let [cardName, setCardName] = React.useState("");
-  let [cardLink, setCardLink] = React.useState("");
+  const [cardName, setCardName] = React.useState("");
+  const [cardLink, setCardLink] = React.useState("");
 
   function handleEditCardName(e) {
     setCardName(e.target.value);
@@ -42,6 +42,7 @@ export default function AddPlacePopup(props) {
             minLength="2"
             maxLength="30"
             onChange={handleEditCardName}
+            value={cardName || ''}
             required
           />
           <span
@@ -57,6 +58,7 @@ export default function AddPlacePopup(props) {
             type="url"
             placeholder="Ссылка на картинку"
             onChange={handleEditCardLink}
+            value={cardLink || ''}
             required
           />
           <span
