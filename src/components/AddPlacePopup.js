@@ -31,7 +31,6 @@ export default function AddPlacePopup(props) {
       isOpen={props.isOpen}
       onSubmit={handleSubmit}
     >
-      <>
         <div className="popup__input-container">
           <input
             name="card-name-input"
@@ -66,7 +65,6 @@ export default function AddPlacePopup(props) {
             className="popup__input-error popup__input-error_visible"
           ></span>
         </div>
-      </>
     </PopupWithForm>
   );
 }
