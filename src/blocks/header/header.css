@@ -2,7 +2,8 @@
     max-width: 880px;
     min-width: 320px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     margin: 0 auto 50px;
     padding: 45px 0 0;
     border-bottom: 1px solid rgba(84, 84, 84, .7);

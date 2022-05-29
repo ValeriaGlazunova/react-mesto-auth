@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import Card from "../components/Card";
+import Header from "./Header";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Main({
@@ -14,6 +15,8 @@ function Main({
   const currentUser = useContext(CurrentUserContext);
 
   return (
+    <>
+    <Header headerName='Выйти' />
     <main className="content">
       <section className="profile">
         <div className="profile__account">
@@ -62,6 +65,7 @@ function Main({
         ))}
       </section>
     </main>
+    </>
   );
 }
 

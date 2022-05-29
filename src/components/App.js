@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { Route } from 'react-router-dom';
 import Header from "./Header";
+import Login from "./Login";
 import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
@@ -9,6 +11,7 @@ import AddPlacePopup from "./AddPlacePopup";
 import ImagePopup from "./ImagePopup";
 import { api } from "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { Switch } from "react-router-dom";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -125,7 +128,8 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header />
+        <Switch>
+        <Route path='/'>
         <Main
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
@@ -135,6 +139,11 @@ function App() {
           onCardDelete={handleCardDelete}
           cards={cards}
         />
+        </Route>
+        <Route path='/sign-in'>
+          <Login />
+        </Route>
+        </Switch>
         <Footer />
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
