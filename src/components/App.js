@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Route } from 'react-router-dom';
-import Header from "./Header";
 import Login from "./Login";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -129,7 +128,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Switch>
-        <Route path='/'>
+        <Route exact path='/'>
         <Main
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}

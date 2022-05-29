@@ -16,7 +16,7 @@ function Main({
 
   return (
     <>
-    <Header headerName='Выйти' />
+    <Header headerName='Выйти' link='/sign-in'/>
     <main className="content">
       <section className="profile">
         <div className="profile__account">

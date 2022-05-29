@@ -53,3 +53,14 @@
 @import url(../src/blocks/popup/__input-error/_visible/popup__input-error_visible.css);
 @import url(../src/blocks/popup/_type/popup_type_confirm.css);
 
+@import url(../src/blocks/login/login.css);
+@import url(../src/blocks/login/__title/login__title.css);
+@import url(../src/blocks/login/__form/login__form.css);
+@import url(../src/blocks/login/__submit-btn/login__submit-btn.css);
+@import url(../src/blocks/login/__input-container/login__input-container.css);
+@import url(../src/blocks/login/__input/login__input.css);
+@import url(../src/blocks/login/__input/_type/login__input_type_email.css);
+@import url(../src/blocks/login/__input/_type/login__input_type_password.css);
+
+
+
