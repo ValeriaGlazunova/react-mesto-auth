@@ -1,4 +1,4 @@
-.login__submit-btn {
+.register__submit-btn {
     width: 358px;
     height: 50px;
     border: none;
@@ -12,9 +12,9 @@
     font-family: inherit;
     cursor: pointer;
     transition: opacity .3s;
-    margin-bottom: 80px;
+    margin-bottom: 15px;
 }
 
-.login__submit-btn:hover {
+.register__submit-btn:hover {
     opacity: .85;
 }

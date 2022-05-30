@@ -4,7 +4,7 @@ import Header from "./Header";
 function Login () {
 return (
     <>
-    <Header headerName="Регистрация" link='/' />
+    <Header headerName="Регистрация" link='/sign-up' />
     <section className='login'>
     <h2 className="login__title">Вход</h2>
     <form className="login__form">

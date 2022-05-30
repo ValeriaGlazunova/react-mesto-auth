@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Route } from 'react-router-dom';
 import Login from "./Login";
+import Register from './Register';
 import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
@@ -141,6 +142,9 @@ function App() {
         </Route>
         <Route path='/sign-in'>
           <Login />
+        </Route>
+        <Route path='/sign-up'>
+          <Register />
         </Route>
         </Switch>
         <Footer />
