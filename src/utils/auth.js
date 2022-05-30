@@ -1,42 +1,57 @@
 export const baseUrl = 'https://auth.nomoreparties.co';
 
-function getResponseData(res) {
+const checkResponse = (res) => {
     if (res.ok) {
         return res.json();
-    } else {
-        return res.json()
-            .then(data => {
-                throw new Error(data.error || data.message);
-            });
-    }
+      } else {
+        return Promise.reject(res.status);
+      }
 }
 
-export function register(password, email) {
+export const register = (password, email) => {
     return fetch(`${baseUrl}/signup`, {
-        method: 'POST',
-        headers: {'Content-Type': "application/json"},
-        body: JSON.stringify({password, email})
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        password,
+        email,
+      })
     })
-        .then((res) => getResponseData(res))
-}
+    .then(res => {
+      checkResponse(res);
+    })
+}; 
 
-export function authorize(password, email) {
+export const login = (password, email) => {
     return fetch(`${baseUrl}/signin`, {
-        method: 'POST',
-        headers: {'Content-Type': "application/json"},
-        body: JSON.stringify({password, email})
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        password,
+        email,
+      })
     })
-        .then((res) => getResponseData(res))
+    .then(res => {
+        checkResponse(res)
+    })
 }
 
-export function getData(jwt) {
-    return fetch(`${baseUrl}/users/me`, {
-        method: 'GET',
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${jwt}`
-        }
-    })
-        .then((res) => getResponseData(res))
-}
-
+export const checkToken = (token) => {
+  return fetch(`${baseUrl}/users/me`, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    }
+  })
+  .then(res => {
+    checkResponse(res)
+  })
+} 

@@ -12,7 +12,7 @@ import AddPlacePopup from "./AddPlacePopup";
 import ImagePopup from "./ImagePopup";
 import InfoTooltip from "./InfoTooltip";
 import { api } from "../utils/Api";
-import { register, authorize, getData } from "../utils/auth";
+import { register, login, checkToken } from "../utils/auth";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { Switch } from "react-router-dom";
 
@@ -27,6 +27,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState('');
   const [isSignedUp, setIsSignedUp] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     api
