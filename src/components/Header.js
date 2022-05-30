@@ -11,6 +11,7 @@ function Header (props) {
           src={logo}
         />
         <nav className="header__nav"> 
+        {props.children}
         <Link to={props.link} className="header__name">{props.headerName}</Link>
         </nav>
       </header>

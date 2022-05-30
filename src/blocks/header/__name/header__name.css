@@ -9,4 +9,10 @@
     align-items: center;
     text-decoration: none;
     color: #FFFFFF;
+    transition: opacity .3s;
+}
+
+.header__name:hover {
+    cursor: pointer;
+    opacity: .6;
 }

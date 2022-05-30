@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Route } from 'react-router-dom';
+import ProtectedRoute from "./ProtectedRoute";
 import Login from "./Login";
 import Register from './Register';
 import Main from "./Main";
@@ -9,7 +10,9 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import ImagePopup from "./ImagePopup";
+import InfoTooltip from "./InfoTooltip";
 import { api } from "../utils/Api";
+import { register, authorize, getData } from "../utils/auth";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { Switch } from "react-router-dom";
 
@@ -17,9 +20,13 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isInfoToolTipPopupOpen, setIsInfoToolTipPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [email, setEmail] = useState('');
+  const [isSignedUp, setIsSignedUp] = useState(false);
 
   useEffect(() => {
     api
@@ -60,6 +67,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setIsInfoToolTipPopupOpen(false);
     setSelectedCard(null);
   };
 
@@ -125,11 +133,29 @@ function App() {
       });
   }
 
+  function handleRegister (password, email) {
+    return register(password, email)
+    .then(res => {
+      if (res.data._id) {
+        setIsSignedUp(true);
+        setIsInfoToolTipPopupOpen(true);
+      } else {
+        setIsSignedUp(false);
+        setIsInfoToolTipPopupOpen(true)
+    }
+    })
+    .catch((error) => {
+      console.log(error.message)
+      setIsSignedUp(false);
+      setIsInfoToolTipPopupOpen(true)
+  })
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Switch>
-        <Route exact path='/'>
+        <ProtectedRoute exact path='/' isLoggedIn={isLoggedIn}>
         <Main
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
@@ -139,12 +165,12 @@ function App() {
           onCardDelete={handleCardDelete}
           cards={cards}
         />
-        </Route>
+        </ProtectedRoute>
         <Route path='/sign-in'>
           <Login />
         </Route>
         <Route path='/sign-up'>
-          <Register />
+          <Register onRegister={handleRegister} />
         </Route>
         </Switch>
         <Footer />
@@ -166,6 +192,7 @@ function App() {
 
         <PopupWithForm name="confirm" title="Вы уверены?" button="Да" />
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+        <InfoTooltip onClose={closeAllPopups} isSignedUp={isSignedUp} />
       </div>
     </CurrentUserContext.Provider>
   );

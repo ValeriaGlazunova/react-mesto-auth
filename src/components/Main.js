@@ -10,13 +10,17 @@ function Main({
   onCardClick,
   onCardLike,
   onCardDelete,
-  cards,
+  cards
 }) {
   const currentUser = useContext(CurrentUserContext);
 
   return (
     <>
-    <Header headerName='Выйти' link='/sign-in'/>
+    <Header headerName='Выйти' link='/sign-in'>
+      <>
+      <div className="header__email">тут имейл</div>
+      </>
+    </Header>
     <main className="content">
       <section className="profile">
         <div className="profile__account">
