@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Route } from 'react-router-dom';
+import  { useState, useEffect } from "react";
+import { Switch, Route, useHistory } from 'react-router-dom';
 import ProtectedRoute from "./ProtectedRoute";
 import Login from "./Login";
 import Register from './Register';
@@ -12,9 +12,8 @@ import AddPlacePopup from "./AddPlacePopup";
 import ImagePopup from "./ImagePopup";
 import InfoTooltip from "./InfoTooltip";
 import { api } from "../utils/Api";
-import { register, login, checkToken } from "../utils/auth";
+import * as auth from "../utils/auth";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import { Switch } from "react-router-dom";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -47,6 +46,7 @@ function App() {
         console.log(err);
       });
   }, []);
+
 
   const handleEditProfileClick = () => {
     setIsEditProfilePopupOpen(true);
@@ -134,12 +134,30 @@ function App() {
       });
   }
 
-  function handleRegister (password, email) {
-    return register(password, email)
+  function checkToken() {
+        const token = localStorage.getItem('token');
+        if (token) {
+        auth.getToken(token)
+            .then(res => {
+                setEmail(res.data.email);
+                setIsLoggedIn(true);
+            })
+            .catch((error) => console.log(error.message));
+          }      
+}
+
+function handleLoggedIn() {
+  setIsLoggedIn(true);
+}
+
+function handleRegister (email, password) {
+   auth.register(email, password)
     .then(res => {
-      if (res.data._id) {
+      console.log(res, 'res')
+      if (res) {
         setIsSignedUp(true);
         setIsInfoToolTipPopupOpen(true);
+        history.push('/sign-in');
       } else {
         setIsSignedUp(false);
         setIsInfoToolTipPopupOpen(true)
@@ -151,6 +169,38 @@ function App() {
       setIsInfoToolTipPopupOpen(true)
   })
   }
+
+function handleLogin (email, password)  {
+     auth.login(email, password)
+      .then(res => {
+        if(res.token){
+        localStorage.setItem('token', res.token);
+        handleLoggedIn();
+        history.push('/')
+    }})
+    .catch((error) => {
+      console.log(error.message)
+      setIsSignedUp(false);
+      setIsInfoToolTipPopupOpen(true)
+  })
+  }
+
+  const signOut = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    setEmail('');
+    history.push('/sign-in')
+  }
+
+  useEffect(() => {
+    checkToken();
+}, []);
+
+useEffect(() => {
+    if (isLoggedIn) {
+        history.push('/')
+    }
+}, [isLoggedIn]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -165,10 +215,11 @@ function App() {
           onCardLike={handleCardLike}
           onCardDelete={handleCardDelete}
           cards={cards}
+          email={email}
         />
         </ProtectedRoute>
         <Route path='/sign-in'>
-          <Login />
+          <Login onLogin={handleLogin}  />
         </Route>
         <Route path='/sign-up'>
           <Register onRegister={handleRegister} />
@@ -193,7 +244,7 @@ function App() {
 
         <PopupWithForm name="confirm" title="Вы уверены?" button="Да" />
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-        <InfoTooltip onClose={closeAllPopups} isSignedUp={isSignedUp} />
+        <InfoTooltip isOpen={isInfoToolTipPopupOpen} onClose={closeAllPopups} isSignedUp={isSignedUp} />
       </div>
     </CurrentUserContext.Provider>
   );
