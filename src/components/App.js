@@ -32,20 +32,14 @@ function App() {
   useEffect(() => {
     api
       .getProfile()
-      .then((res) => {
-        setCurrentUser(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(setCurrentUser)
+      .catch(console.log);
     api
       .getInitialCards()
       .then((cards) => {
         setCards(cards);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(console.log);
   }, []);
 
   const handleEditProfileClick = () => {
@@ -160,6 +154,7 @@ function App() {
       .then((data) => {
         if (data) {
           localStorage.setItem("token", data.token);
+          setEmail(data.email);
           setIsLoggedIn(true);
           history.push("/");
         } else {
@@ -198,7 +193,7 @@ function App() {
     if (isLoggedIn) {
       history.push("/");
     }
-  }, [isLoggedIn]);
+  }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
