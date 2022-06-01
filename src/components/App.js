@@ -134,25 +134,10 @@ function App() {
       });
   }
 
-  function checkToken() {
-        const token = localStorage.getItem('token');
-        if (token) {
-        auth.getToken(token)
-            .then(res => {
-                setEmail(res.data.email);
-                setIsLoggedIn(true);
-            })
-            .catch((error) => console.log(error.message));
-          }      
-}
 
-function handleLoggedIn() {
-  setIsLoggedIn(true);
-}
-
-function handleRegister (email, password) {
-   auth.register(email, password)
-    .then(res => {
+function handleRegister (data) {
+    auth.register(data)
+    .then((res) => {
       console.log(res, 'res')
       if (res) {
         setIsSignedUp(true);
@@ -160,37 +145,55 @@ function handleRegister (email, password) {
         history.push('/sign-in');
       } else {
         setIsSignedUp(false);
-        setIsInfoToolTipPopupOpen(true)
-    }
-    })
+        setIsInfoToolTipPopupOpen(true);
+      }
+      
+   })
     .catch((error) => {
+      setIsInfoToolTipPopupOpen(true)
       console.log(error.message)
       setIsSignedUp(false);
-      setIsInfoToolTipPopupOpen(true)
   })
   }
 
-function handleLogin (email, password)  {
-     auth.login(email, password)
-      .then(res => {
-        if(res.token){
-        localStorage.setItem('token', res.token);
-        handleLoggedIn();
+function handleLogin (data)  {
+     auth.login(data)
+      .then((data) => 
+      {console.log(data, 'data')
+        if(data) {
+        localStorage.setItem('token', data.token);
+        setIsLoggedIn(true);
         history.push('/')
-    }})
+    } else {
+     setIsInfoToolTipPopupOpen(true)
+    }
+  
+  })
     .catch((error) => {
-      console.log(error.message)
-      setIsSignedUp(false);
       setIsInfoToolTipPopupOpen(true)
+      console.log(error.message)
   })
   }
 
-  const signOut = () => {
-    localStorage.removeItem('token');
-    setIsLoggedIn(false);
-    setEmail('');
-    history.push('/sign-in')
-  }
+//  const signOut = () => {
+//    localStorage.removeItem('token');
+//   setIsLoggedIn(false);
+ //   setEmail('');
+ //   history.push('/sign-in')
+// }
+
+function checkToken() {
+  const token = localStorage.getItem('token');
+  if (token) {
+  auth.getToken(token)
+      .then((res) => {
+          setEmail(res.data.email);
+          setIsLoggedIn(true);
+          history.push('/')
+      })
+      .catch((error) => console.log(error.message));
+    }      
+}
 
   useEffect(() => {
     checkToken();

@@ -10,8 +10,7 @@ function Main({
   onCardClick,
   onCardLike,
   onCardDelete,
-  cards,
-  email
+  cards
 }) {
   const currentUser = useContext(CurrentUserContext);
 

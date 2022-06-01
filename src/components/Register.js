@@ -16,7 +16,7 @@ function Register ({onRegister}) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        onRegister(email, password);
+        onRegister({password, email});
     }
 
     return (
@@ -26,7 +26,7 @@ function Register ({onRegister}) {
         <h2 className="register__title">Регистрация</h2>
         <form className="register__form" onSubmit={handleSubmit}>
             <div className="register__input-container">
-                <input value={email} name="email" className="register__input register__input_type_email" type="text" required placeholder="Email" onChange={handleEmailPut} />
+                <input value={email} name="email" className="register__input register__input_type_email" type="email" required placeholder="Email" onChange={handleEmailPut} />
                 <input value={password} name="password" className="register__input register__input_type_password" type="password" required placeholder="Пароль" onChange={handlePasswordPut} />
             </div>
             <button type="submit" className="register__submit-btn">Зарегистрироваться</button>
