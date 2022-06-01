@@ -139,7 +139,6 @@ function App() {
 function handleRegister (data) {
     auth.register(data)
     .then((res) => {
-      console.log(res, 'res')
       if (res) {
         setIsSignedUp(true);
         setIsInfoToolTipPopupOpen(true);
@@ -160,9 +159,10 @@ function handleRegister (data) {
 function handleLogin (data)  {
      auth.login(data)
       .then((data) => 
-      {console.log(data, 'data')
+      {
         if(data) {
         localStorage.setItem('token', data.token);
+        setEmail(data.email)
         setIsLoggedIn(true);
         history.push('/')
     } else {
@@ -196,11 +196,8 @@ function checkToken() {
     }      
 }
 
-  useEffect(() => {
-    checkToken();
-}, []);
-
 useEffect(() => {
+  checkToken()
     if (isLoggedIn) {
         history.push('/')
     }
