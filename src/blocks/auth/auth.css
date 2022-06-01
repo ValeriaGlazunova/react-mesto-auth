@@ -1,8 +1,8 @@
-.register {
+.auth {
     max-width: 880px;
     display: flex;
     flex-direction: column;
     margin: 0 auto;
     align-items: center;
-    min-height: 470px;
+    min-height: 600px;
 }

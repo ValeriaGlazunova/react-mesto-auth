@@ -1,9 +1,9 @@
-.register__link {
+.auth__link {
     text-decoration: none;
     color: #FFFFFF;
     transition: opacity .3s;
 }
 
-.register__link:hover {
+.auth__link:hover {
     opacity: .85;
 }

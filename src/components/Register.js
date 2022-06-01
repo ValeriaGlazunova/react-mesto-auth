@@ -19,16 +19,16 @@ function Register ({onRegister}) {
     }
 
     return (
-        <section className='register'>
-        <h2 className="register__title">Регистрация</h2>
-        <form className="register__form" onSubmit={handleSubmit}>
-            <div className="register__input-container">
-                <input value={email} name="email" className="register__input register__input_type_email" type="email" required placeholder="Email" onChange={handleEmailPut} />
-                <input value={password} name="password" className="register__input register__input_type_password" type="password" required placeholder="Пароль" onChange={handlePasswordPut} />
+        <section className='auth auth_type_register'>
+        <h2 className="auth__title">Регистрация</h2>
+        <form className="auth__form" onSubmit={handleSubmit}>
+            <div className="auth__input-container">
+                <input value={email} name="email" className="auth__input register__input_type_email" type="email" required placeholder="Email" onChange={handleEmailPut} />
+                <input value={password} name="password" className="auth__input register__input_type_password" type="password" required placeholder="Пароль" onChange={handlePasswordPut} />
             </div>
-            <button type="submit" className="register__submit-btn">Зарегистрироваться</button>
+            <button type="submit" className="auth__submit-btn">Зарегистрироваться</button>
         </form>
-        <p className="register__subtitle">Уже зарегистрированы? <Link to="/sign-in" className="register__link">Войти</Link></p>
+        <p className="auth__subtitle">Уже зарегистрированы? <Link to="/sign-in" className="auth__link">Войти</Link></p>
         </section>
     );
     }

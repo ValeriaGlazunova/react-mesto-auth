@@ -19,14 +19,14 @@ function Login ({onLogin}) {
 
 
 return (
-    <section className='login'>
-    <h2 className="login__title">Вход</h2>
-    <form className="login__form" onSubmit={handleLogin} >
-        <div className="login__input-container">
-            <input name="email" className="login__input login__input_type_email" type="email" required placeholder="Email" onChange={handleEmailPut} />
-            <input name="password" className="login__input login__input_type_password" type="password" required placeholder="Пароль" onChange={handlePasswordPut} />
+    <section className='auth auth_type_login'>
+    <h2 className="auth__title">Вход</h2>
+    <form className="auth__form" onSubmit={handleLogin} >
+        <div className="auth__input-container">
+            <input name="email" className="auth__input auth__input_type_email" type="email" required placeholder="Email" onChange={handleEmailPut} />
+            <input name="password" className="auth__input auth__input_type_password" type="password" required placeholder="Пароль" onChange={handlePasswordPut} />
         </div>
-        <button type="submit" className="login__submit-btn">Войти</button>
+        <button type="submit" className="auth__submit-btn">Войти</button>
     </form>
     </section>
 );
