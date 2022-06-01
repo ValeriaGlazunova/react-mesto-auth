@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "./Header";
 
 function Login ({onLogin}) {
     const [email, setEmail] = React.useState('');
@@ -20,8 +19,6 @@ function Login ({onLogin}) {
 
 
 return (
-    <>
-    <Header headerName="Регистрация" link='/sign-up' />
     <section className='login'>
     <h2 className="login__title">Вход</h2>
     <form className="login__form" onSubmit={handleLogin} >
@@ -32,7 +29,6 @@ return (
         <button type="submit" className="login__submit-btn">Войти</button>
     </form>
     </section>
-    </>
 );
 }
 

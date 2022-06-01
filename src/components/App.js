@@ -3,6 +3,7 @@ import { Switch, Route, useHistory } from 'react-router-dom';
 import ProtectedRoute from "./ProtectedRoute";
 import Login from "./Login";
 import Register from './Register';
+import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
@@ -175,12 +176,12 @@ function handleLogin (data)  {
   })
   }
 
-//  const signOut = () => {
-//    localStorage.removeItem('token');
-//   setIsLoggedIn(false);
- //   setEmail('');
- //   history.push('/sign-in')
-// }
+  const signOut = () => {
+    localStorage.removeItem('token');
+   setIsLoggedIn(false);
+    setEmail('');
+    history.push('/sign-in')
+ }
 
 function checkToken() {
   const token = localStorage.getItem('token');
@@ -208,6 +209,7 @@ useEffect(() => {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
+        <Header email={email} isLoggedIn={isLoggedIn} exit={signOut} />
         <Switch>
         <ProtectedRoute exact path='/' isLoggedIn={isLoggedIn}>
         <Main

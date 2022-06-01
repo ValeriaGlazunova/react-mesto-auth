@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "./Header";
 import { Link } from "react-router-dom";
 
 function Register ({onRegister}) {
@@ -20,8 +19,6 @@ function Register ({onRegister}) {
     }
 
     return (
-        <>
-        <Header headerName="Войти" link='/sign-in' />
         <section className='register'>
         <h2 className="register__title">Регистрация</h2>
         <form className="register__form" onSubmit={handleSubmit}>
@@ -33,7 +30,6 @@ function Register ({onRegister}) {
         </form>
         <p className="register__subtitle">Уже зарегистрированы? <Link to="/sign-in" className="register__link">Войти</Link></p>
         </section>
-        </>
     );
     }
     
