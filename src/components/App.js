@@ -1,8 +1,8 @@
-import  { useState, useEffect } from "react";
-import { Switch, Route, useHistory } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { Switch, Route, useHistory } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import Login from "./Login";
-import Register from './Register';
+import Register from "./Register";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -25,7 +25,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [isSignedUp, setIsSignedUp] = useState(false);
   const history = useHistory();
 
@@ -47,7 +47,6 @@ function App() {
         console.log(err);
       });
   }, []);
-
 
   const handleEditProfileClick = () => {
     setIsEditProfilePopupOpen(true);
@@ -135,97 +134,95 @@ function App() {
       });
   }
 
-
-function handleRegister (data) {
-    auth.register(data)
-    .then((res) => {
-      if (res) {
-        setIsSignedUp(true);
+  function handleRegister(data) {
+    auth
+      .register(data)
+      .then((res) => {
+        if (res) {
+          setIsSignedUp(true);
+          setIsInfoToolTipPopupOpen(true);
+          history.push("/sign-in");
+        } else {
+          setIsSignedUp(false);
+          setIsInfoToolTipPopupOpen(true);
+        }
+      })
+      .catch((error) => {
         setIsInfoToolTipPopupOpen(true);
-        history.push('/sign-in');
-      } else {
+        console.log(error.message);
         setIsSignedUp(false);
-        setIsInfoToolTipPopupOpen(true);
-      }
-      
-   })
-    .catch((error) => {
-      setIsInfoToolTipPopupOpen(true)
-      console.log(error.message)
-      setIsSignedUp(false);
-  })
+      });
   }
 
-function handleLogin (data)  {
-     auth.login(data)
-      .then((data) => 
-      {
-        if(data) {
-        localStorage.setItem('token', data.token);
-        setEmail(data.email)
-        setIsLoggedIn(true);
-        history.push('/')
-    } else {
-     setIsInfoToolTipPopupOpen(true)
-    }
-  
-  })
-    .catch((error) => {
-      setIsInfoToolTipPopupOpen(true)
-      console.log(error.message)
-  })
+  function handleLogin(data) {
+    auth
+      .login(data)
+      .then((data) => {
+        if (data) {
+          localStorage.setItem("token", data.token);
+          setIsLoggedIn(true);
+          history.push("/");
+        } else {
+          setIsInfoToolTipPopupOpen(true);
+        }
+      })
+      .catch((error) => {
+        setIsInfoToolTipPopupOpen(true);
+        console.log(error.message);
+      });
   }
 
   const signOut = () => {
-    localStorage.removeItem('token');
-   setIsLoggedIn(false);
-    setEmail('');
-    history.push('/sign-in')
- }
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    setEmail("");
+    history.push("/sign-in");
+  };
 
-function checkToken() {
-  const token = localStorage.getItem('token');
-  if (token) {
-  auth.getToken(token)
-      .then((res) => {
+  function checkToken() {
+    const token = localStorage.getItem("token");
+    if (token) {
+      auth
+        .getToken(token)
+        .then((res) => {
           setEmail(res.data.email);
           setIsLoggedIn(true);
-          history.push('/')
-      })
-      .catch((error) => console.log(error.message));
-    }      
-}
-
-useEffect(() => {
-  checkToken()
-    if (isLoggedIn) {
-        history.push('/')
+          history.push("/");
+        })
+        .catch((error) => console.log(error.message));
     }
-}, [isLoggedIn]);
+  }
+
+  useEffect(() => {
+    checkToken();
+    if (isLoggedIn) {
+      history.push("/");
+    }
+  }, [isLoggedIn]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Header email={email} isLoggedIn={isLoggedIn} exit={signOut} />
         <Switch>
-        <ProtectedRoute exact path='/' isLoggedIn={isLoggedIn}>
-        <Main
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onEditAvatar={handleEditAvatarClick}
-          onCardClick={handleCardClick}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
-          cards={cards}
-          email={email}
-        />
-        </ProtectedRoute>
-        <Route path='/sign-in'>
-          <Login onLogin={handleLogin}  />
-        </Route>
-        <Route path='/sign-up'>
-          <Register onRegister={handleRegister} />
-        </Route>
+          <ProtectedRoute exact path="/" isLoggedIn={isLoggedIn}>
+            <Main
+              onEditProfile={handleEditProfileClick}
+              onAddPlace={handleAddPlaceClick}
+              onEditAvatar={handleEditAvatarClick}
+              onCardClick={handleCardClick}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
+              cards={cards}
+              email={email}
+            />
+          </ProtectedRoute>
+          <Route path="/sign-in">
+            <Login onLogin={handleLogin} />
+          </Route>
+          <Route path="/sign-up">
+            <Register onRegister={handleRegister} />
+          </Route>
         </Switch>
         <Footer />
         <EditProfilePopup
@@ -246,7 +243,11 @@ useEffect(() => {
 
         <PopupWithForm name="confirm" title="Вы уверены?" button="Да" />
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-        <InfoTooltip isOpen={isInfoToolTipPopupOpen} onClose={closeAllPopups} isSignedUp={isSignedUp} />
+        <InfoTooltip
+          isOpen={isInfoToolTipPopupOpen}
+          onClose={closeAllPopups}
+          isSignedUp={isSignedUp}
+        />
       </div>
     </CurrentUserContext.Provider>
   );
