@@ -9,6 +9,8 @@
 Добавлены функции обновления данных пользователя и добавления новых карточек.
 Добавлена возможность прохождения регистрации и авторизации пользователя через React.
 
+* [Ссылка на GitHub Pages](https://valeriaglazunova.github.io/react-mesto-auth/)
+
 ### Стек технологий:
 
 HTML, CSS, БЭМ Nested, Flex, grid-layout, адаптивная верстка, JavaScript, React, WebPack, React-Route
